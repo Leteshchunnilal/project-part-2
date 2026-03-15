@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="script.js"></script>
+    <script src="wall.js"></script>
+    <script src="kinema.js"></script>                   
+    <script src="camera.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.6.1/dist/aframe-extras.min.js"></script>
+    <script src="hotbar.js"></script>
+    <script src="collision.js"></script>
+    <style>
+      /* Hotbar Styles */asd
+      .hotbar-container {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 12px;
+        border-radius: 8px;
+        border: 2px solid #444;
+        z-index: 100;
+      }
+
+      .hotbar-slot {
+        width: 50px;
+        height: 50px;
+        background: rgba(100, 100, 100, 0.9);
+        border: 2px solid #666;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.1s;
+        position: relative;
+        font-size: 12px;
+        color: #fff;
+        font-weight: bold;
+      }
+
+      .hotbar-slot:hover {
+        background: rgba(120, 120, 120, 0.9);
+        border-color: #888;
+      }
+
+      .hotbar-slot.active {
+        background: rgba(255, 200, 0, 0.9);
+        border-color: #ffd700;
+        box-shadow: 0 0 10px rgba(255, 200, 0, 0.6);
+      }
+
+      .hotbar-slot-key {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        font-size: 10px;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 2px 4px;
+        border-radius: 2px;
+      }
+
+      .hotbar-slot-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="Hosp" src="abandoned_hospital_part_two/scene.gltf"></a-asset-item>
+      </a-assets>
+
+      <a-entity animation="property: position; to: 0 -4 0; dur: 300; easing: easeOutQuad"
+                animation__down="property: position; to: 0 0 0; dur: 300; delay: 300; easing: easeInQuad">
+      </a-entity>
+
+      <a-plane color="green" position="0 0 -5" rotation="-90 0 0" width="150" height="150"></a-plane>
+      <!-- simple mountain border made from boxes (more overlapping/closer spacing) -->
+      <a-entity id="mountains">
+        <-- mountains -->
+        <a-box position="-50 9 -53" width="8" height="18" depth="10" color="brown" rotation="0 15 0"></a-box>
+        <a-box position="-44 12 -54" width="10" height="22" depth="10" color="brown" rotation="0 -10 0"></a-box>
+        <a-box position="-38 8 -52" width="9" height="16" depth="10" color="brown" rotation="0 20 0"></a-box>
+        <a-box position="-32 10 -55" width="12" height="20" depth="10" color="brown" rotation="0 5 0"></a-box>
+        <a-box position="-26 6 -53" width="8" height="14" depth="10" color="brown" rotation="0 25 0"></a-box>
+        <a-box position="-20 11 -51" width="14" height="24" depth="10" color="brown" rotation="0 -20 0"></a-box>
+        <a-box position="-14 8 -54" width="10" height="18" depth="10" color="brown" rotation="0 10 0"></a-box>
+        <a-box position="-8 9 -52" width="11" height="19" depth="10" color="brown" rotation="0 -15 0"></a-box>
+        <a-box position="-2 7 -55" width="9" height="15" depth="10" color="brown" rotation="0 30 0"></a-box>
+        <a-box position="5 10 -53" width="12" height="22" depth="10" color="brown" rotation="0 5 0"></a-box>
+        <a-box position="12 8 -54" width="10" height="17" depths="10" color="brown" rotation="0 15 0"></a-box>
+        <a-box position="26 7 -55" width="9" height="16" depth="10" color="brown" rotation="0 -5 0"></a-box>
+        <a-box position="33 10 -53" width="12" height="20" depth="10" color="brown" rotation="0 10 0"></a-box>
+        <a-box position="40 8 -54" width="10" height="18" depth="10" color="brown" rotation="0 -15 0"></a-box>
+        <a-box position="47 7 -52" width="8" height="14" depth="10" color="brown" rotation="0 20 0"></a-box>
+        <a-box position="50 9 -53" width="8" height="18" depth="10" color="brown" rotation="0 15 0"></a-box>
+        <a-box position="-50 10 53" width="8" height="18" depth="10" color="brown" rotation="0 -15 0"></a-box>
+        <a-box position="-44 8 52" width="10" height="16" depth="10" color="brown" rotation="0 20 0"></a-box>
+        <a-box position="-38 11 54" width="12" height="22" depth="10" color="brown" rotation="0 -10 0"></a-box>
+        <a-box position="-32 7 52" width="9" height="15" depth="10" color="brown" rotation="0 10 0"></a-box>
+        <a-box position="-26 10 53" width="10" height="20" depth="10" color="brown" rotation="0 -25 0"></a-box>
+        <a-box position="-20 8 54" width="11" height="19" depth="10" color="brown" rotation="0 15 0"></a-box>
+        <a-box position="-14 6 52" width="8" height="14" depth="10" color="brown" rotation="0 -10 0"></a-box>
+        <a-box position="-8 11 53" width="14" height="22" depth="10" color="brown" rotation="0 10 0"></a-box>
+        <a-box position="-2 9 54" width="10" height="17" depth="10" color="brown" rotation="0 -25 0"></a-box>
+        <a-box position="5 7 52" width="9" height="15" depth="10" color="brown" rotation="0 15 0"></a-box>
+        <a-box position="12 10 53" width="12" height="20" depth="10" color="brown" rotation="0 -10 0"></a-box>
+        <a-box position="19 8 54" width="10" height="18" depth="10" color="brown" rotation="0 20 0"></a-box>
+        <a-box position="26 9 52" width="11" height="19" depth="10" color="brown" rotation="0 -15 0"></a-box>
+        <a-box position="33 7 53" width="10" height="16" depth="10" color="brown" rotation="0 15 0"></a-box>
+        <a-box position="40 10 54" width="12" height="22" depth="10" color="brown" rotation="0 -10 0"></a-box>
+        <a-box position="47 8 52" width="8" height="14" depth="10" color="brown" rotation="0 10 0"></a-box>
+        <a-box position="52 10 53" width="8" height="18" depth="10" color="brown" rotation="0 -15 0"></a-box>
+        <a-box position="-53 8 -42" width="10" height="16" depth="10" color="brown" rotation="0 0 0"></a-box>
+        <a-box position="-53 11 -30" width="10" height="22" depth="10" color="brown" rotation="0 0 10"></a-box>
+        <a-box position="-54 7 -18" width="10" height="14" depth="10" color="brown" rotation="0 0 -15"></a-box>
+        <a-box position="-53 10 -6" width="10" height="18" depth="10" color="brown" rotation="0 0 5"></a-box>
+        <a-box position="-54 8 6" width="10" height="16" depth="10" color="brown" rotation="0 0 -5"></a-box>
+        <a-box position="-52 10 18" width="10" height="20" depth="10" color="brown" rotation="0 0 10"></a-box>
+        <a-box position="-53 8 30" width="10" height="16" depth="10" color="brown" rotation="0 0 -10"></a-box>
+        <a-box position="-54 11 42" width="10" height="22" depth="10" color="brown" rotation="0 0 5"></a-box>
+        <a-box position="-52 7 50" width="10" height="18" depth="10" color="brown" rotation="0 0 -5"></a-box>
+        <a-box position="53 9 -42" width="10" height="19" depth="10" color="brown" rotation="0 0 10"></a-box>
+        <a-box position="54 7 -30" width="10" height="15" depth="10" color="brown" rotation="0 0 -10"></a-box>
+        <a-box position="52 11 -18" width="10" height="23" depth="10" color="brown" rotation="0 0 5"></a-box>
+        <a-box position="53 8 -6" width="10" height="17" depth="10" color="brown" rotation="0 0 -5"></a-box>
+        <a-box position="54 10 6" width="10" height="20" depth="10" color="brown" rotation="0 0 15"></a-box>
+        <a-box position="52 9 18" width="10" height="18" depth="10" color="brown" rotation="0 0 -10"></a-box>
+        <a-box position="53 7 30" width="10" height="16" depth="10" color="brown" rotation="0 0 10"></a-box>
+        <a-box position="54 11 42" width="10" height="22" depth="10" color="brown" rotation="0 0 -5"></a-box>
+        <a-box position="52 8 50" width="10" height="18" depth="10" color="brown" rotation="0 0 15"></a-box>
+      </a-entity>
+      <a-plane color="green" position="0 -12.9 -5" rotation="-90 0 0" width="70" height="70"></a-plane>
+      <a-gltf-model id="Hospital" position="-24 -13.8 -5" rotation="0 0 0" src="#Hosp"></a-gltf-model>
+      <a-sky color="red"></a-sky>
+
+      <a-entity id="cameraRig" movement-controls="fly: false; speed: 0.7" position="0 0 0">
+        <a-camera id="camera" wasd-controls="acceleration: 100; fly: true" position="6 -10 -12" look-controls="pointerLockEnabled: true">
+          <a-cursor>
+            <a-text id="Mission" position="-3.4 1.5 -1" value="Mission:" color="black"></a-text>
+          </a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <a-entity id="wall" rotation="0 90 0" position="4.5 0 -2.5">
+        <a-box width="3" height="3" depth="0.1" position="-2 1.5 0" color="blue" opacity="1"></a-box>
+        <a-box width="3" height="3" depth="0.1" position="2 1.5 0" color="blue" opacity="1"></a-box>
+        <a-box width="3" height="1" depth="0.1" position="0 0.5 0" color="blue" opacity="1"></a-box>
+        <a-box width="2" height="1" depth="0.1" position="0 2.5 0" color="blue" opacity="1"></a-box>
+        <a-box width="2" height="1" depth="0.1" position="0 1.5 0" color="blue" opacity="1"></a-box>
+      </a-entity>
+
+      <a-entity id="wall2">
+        <a-box width="3" height="4" depth="0.1" position="3 1.5 1"></a-box>
+        <a-box width="3" height="4" depth="0.1" position="2.2 1.5 2.4" rotation="0 90 0"></a-box>
+        <a-box width=".9" height="4" depth="0.1" position="1.8 1.5 3.9"></a-box>
+        <a-box width="3" height="4" depth="0.1" position="1.3 1.5 4" rotation="0 90 0"></a-box>
+        <a-box width="3" height="4" depth="0.1" position="1.3 1.5 8.3" rotation="0 90 0"></a-box>
+        <a-box width="2" height="4" depth="0.1" position="2 1.5 8.9"></a-box>
+        <a-box width="2" height="4" depth="0.1" position="6.8 1.5 8.9"></a-box>
+        <a-box width=".9" height="4" depth="0.1" position="7.9 1.5 7.5"></a-box>
+        <a-box width="1.3" height="4" depth="0.1" position="7.5 1.5 8.2" rotation="0 90 0"></a-box>
+        <a-box width="1.3" height="4" depth="0.1" position="8.3 1.5 6.8" rotation="0 90 0"></a-box>
+        <a-box width="3" height="4" depth="0.1" position="9.6 1.5 6.1"></a-box>
+        <a-box width="8" height="4" depth="0.1" position="10.5 1.5 2.1" rotation="0 90 0"></a-box>
+        <a-box width="5" height="4" depth="0.1" position="10.5 1.5 -4" rotation="0 90 0"></a-box>
+        <a-box width="6" height="13" depth="0.1" position="7 1.5 -6" rotation="0 0 90"></a-box>
+        <a-box width="9" height="4" depth="0.1" position="-6.5 1.5 6" rotation="0 90 0"></a-box>
+        <a-box width="5" height="9" depth="0.1" position="-3 1.5 8.9" rotation="0 0 90"></a-box>
+        <a-box width="5" height="9" depth="0.1" position="-3 1.5 4" rotation="0 0 90"></a-box>
+        <a-box width="12" height="1" depth="0.1" position="9.4 -6 -4.5" rotation="0 0 90"></a-box>
+        <a-box width="8" height="4" depth="0.1" position="12.5 -11.4 -12" rotation="0 90 0"></a-box>
+        <a-box width="4" height="12" depth="0.1" position="7 -11.4 -15.8" rotation="0 0 90"></a-box>
+        <a-box width="8" height="4" depth="0.1" position="12.5 -11.4 -12" rotation="0 90 0"></a-box>
+        <a-box width="8" height="4" depth="0.1" position="12.5 -11.4 -9" rotation="0 90 0"></a-box>
+        <a-box width="8" height="4" depth="0.1" position="-2.7 -11.4 -15" rotation="0  0"></a-box>
+      </a-entity>
+
+    </a-scene>
+
+    <div>
+      <h1>Mission: Escape the</h1>
+    </div>
+
+    <!-- Hotbar -->
+    <div class="hotbar-container" id="hotbar"></div>
+  </body>
+</html>

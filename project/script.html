@@ -75,9 +75,61 @@
         justify-content: center;
         font-size: 24px;
       }
+
+      /* Start Screen Styles */
+      .start-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(51,51,51,0.8) 100%), url('../jaja.png') center/cover no-repeat;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+
+      .start-screen h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      }
+
+      .start-screen p {
+        font-size: 1.2em;
+        margin-bottom: 40px;
+        text-align: center;
+        max-width: 600px;
+      }
+
+      .start-button {
+        padding: 15px 30px;
+        font-size: 1.5em;
+        background: #ff4444;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .start-button:hover {
+        background: #cc3333;
+      }
     </style>
   </head>
   <body>
+    <!-- Start Screen -->
+    <div id="start-screen" class="start-screen">
+      <h1> You have one mission:kill big zuck </h1>
+      <p>Navigate through the abandoned hospital unlocking new areas and pray big zuck doesnt find you before you find him....<br>Use WASD to move, mouse to look around along with the flashlight to see where youre going and once encountering big Zuck shoot him dowm and run away.</p>
+      <button class="start-button" onclick="startGame()">Start Game</button>
+    </div>
+
     <a-scene fog="type: exponential; color: #666; density: 0.05">
       <a-assets>
         <a-asset-item id="Hosp" src="abandoned_hospital_part_two/scene.gltf"></a-asset-item>
@@ -201,5 +253,11 @@
 
     <!-- Hotbar -->
     <div class="hotbar-container" id="hotbar"></div>
+
+    <script>
+      function startGame() {
+        document.getElementById('start-screen').style.display = 'none';
+      }
+    </script>
   </body>
 </html>
